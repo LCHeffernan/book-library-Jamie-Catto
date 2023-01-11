@@ -16,6 +16,7 @@ describe('/readers', () => {
                 const response = await request(app).post('/readers').send({
                 name: 'Benedict Cumberbatch',
                 email: 'benny.cumbo@gmail.com',
+                password: 'password'
                 });
 
                 const newReaderRecord = await Reader.findByPk(response.body.id, { raw: true });
@@ -23,6 +24,7 @@ describe('/readers', () => {
                 expect(response.body.name).to.equal('Benedict Cumberbatch');
                 expect(newReaderRecord.name).to.equal('Benedict Cumberbatch');
                 expect(newReaderRecord.email).to.equal('benny.cumbo@gmail.com');
+                expect(newReaderRecord.password).to.equal('password');
             });
         });
     });
@@ -32,9 +34,9 @@ describe('/readers', () => {
 
         beforeEach(async () => {
             readers = await Promise.all([
-                Reader.create({ name: 'Benedict Cumberbatch', email: 'benny.cumbo@gmail.com' }),
-                Reader.create({ name: 'Matt Warburton', email: 'warby@hotmail.com' }),
-                Reader.create({ name: 'Yaya Toure', email: 'yaya@kolo.com' })
+                Reader.create({ name: 'Benedict Cumberbatch', email: 'benny.cumbo@gmail.com', password: 'password' }),
+                Reader.create({ name: 'Matt Warburton', email: 'warby@hotmail.com', password: 'password' }),
+                Reader.create({ name: 'Yaya Toure', email: 'yaya@kolo.com', password: 'password' })
             ]);
         });
 
@@ -43,6 +45,7 @@ describe('/readers', () => {
                 const response = await request(app).get('/readers');
 
                 expect(response.status).to.equal(200);
+                console.log(response.body);
                 expect(response.body.length).to.equal(3);
 
                 response.body.forEach((reader) => {
@@ -50,6 +53,7 @@ describe('/readers', () => {
 
                     expect(reader.name).to.equal(expected.name);
                     expect(reader.email).to.equal(expected.email);
+                    expect(reader.password).to.equal(expected.password);
                 });
             });
         });
@@ -62,6 +66,7 @@ describe('/readers', () => {
                 expect(response.status).to.equal(200);
                 expect(response.body.name).to.equal(reader.name);
                 expect(response.body.email).to.equal(reader.email);
+                expect(response.body.password).to.equal(reader.password);
             });
 
             it('returns a 404 if the reader does not exist', async () => {
