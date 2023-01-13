@@ -45,7 +45,6 @@ describe('/readers', () => {
                 const response = await request(app).get('/readers');
 
                 expect(response.status).to.equal(200);
-                console.log(response.body);
                 expect(response.body.length).to.equal(3);
 
                 response.body.forEach((reader) => {

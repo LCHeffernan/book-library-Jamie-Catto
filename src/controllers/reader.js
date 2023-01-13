@@ -26,6 +26,8 @@ exports.updateReaderEmail = async (req, res) => {
     const updateData = req.body;
 
     const [ updatedRows ] = await Reader.update(updateData, { where: { id: readerId } });
+    // 'updatedRows' is simply a 1 or 0 depending on if the operation was successful
+    
     const updatedReader = await Reader.findByPk(readerId);
     
     if(!updatedReader) {
