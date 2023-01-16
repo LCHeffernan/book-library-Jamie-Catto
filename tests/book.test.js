@@ -35,9 +35,9 @@ describe('/books', () => {
                     genre: 'adventure',
                     isbn: '9650'
                 });
-
+                console.log(response.body);
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('You must enter a title and author.');
+                expect(response.body.message[0]).to.equal('Book.title cannot be null');
             });
 
             it('returns a 404 if there is no author entered', async () => {
@@ -48,7 +48,7 @@ describe('/books', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('You must enter a title and author.');
+                expect(response.body.message[0]).to.equal('Book.author cannot be null');
             });
         });
     });

@@ -1,20 +1,8 @@
 const { Book } = require('../models');
+const helper = require('./helper');
 
 exports.addBook = async (req, res) => {
-
-
-    try {
-        const newBook = await Book.create(req.body);
-        res.status(201).json(newBook);
-    } catch (err) {
-        const vKey = err.errors[0].validatorKey;
-
-        if (vKey === 'is_null') {
-            return res.status(404).json({ message: 'You must enter a title and author.' })
-        }
-        
-        res.status(404).json({ message: err.message });
-    }
+    helper.addItem(res, req.body, Book);
 }
 
 exports.getAllBooks = async (req, res) => {
