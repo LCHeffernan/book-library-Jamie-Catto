@@ -35,7 +35,6 @@ describe('/books', () => {
                     genre: 'adventure',
                     isbn: '9650'
                 });
-                console.log(response.body);
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('Book.title cannot be null');
             });

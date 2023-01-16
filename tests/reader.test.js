@@ -21,10 +21,10 @@ describe('/readers', () => {
 
                 const newReaderRecord = await Reader.findByPk(response.body.id, { raw: true });
                 expect(response.status).to.equal(201);
-                expect(response.body.name).to.equal('Benedict Cumberbatch');
                 expect(newReaderRecord.name).to.equal('Benedict Cumberbatch');
-                expect(newReaderRecord.email).to.equal('benny.cumbo@gmail.com');
-                expect(newReaderRecord.password).to.equal('password');
+                expect(response.body.name).to.equal('Benedict Cumberbatch');
+                expect(response.body.email).to.equal('benny.cumbo@gmail.com');
+                expect(response.body.password).to.equal(undefined);
             });
 
             it('returns a 404 if any of the fields are empty', async () => {
@@ -78,13 +78,14 @@ describe('/readers', () => {
 
                 expect(response.status).to.equal(200);
                 expect(response.body.length).to.equal(3);
+                // console.log(response.body);
 
                 response.body.forEach((reader) => {
                     const expected = readers.find((a) => a.id === reader.id);
 
                     expect(reader.name).to.equal(expected.name);
                     expect(reader.email).to.equal(expected.email);
-                    expect(reader.password).to.equal(expected.password);
+                    expect(reader.password).to.equal(undefined);
                 });
             });
         });
@@ -97,7 +98,7 @@ describe('/readers', () => {
                 expect(response.status).to.equal(200);
                 expect(response.body.name).to.equal(reader.name);
                 expect(response.body.email).to.equal(reader.email);
-                expect(response.body.password).to.equal(reader.password);
+                expect(response.body.password).to.equal(undefined);
             });
 
             it('returns a 404 if the reader does not exist', async () => {
@@ -117,6 +118,7 @@ describe('/readers', () => {
 
                 expect(response.status).to.equal(200);
                 expect(updatedReaderRecord.email).to.equal('smitty@mclovin.com');
+                expect(response.body.password).to.equal(undefined);
             });
 
             it('returns a 404 if the reader does not exist', async () => {
@@ -135,6 +137,7 @@ describe('/readers', () => {
 
                 const deletedReader = await Reader.findByPk(reader.id, { raw: true });
                 expect(response.status).to.equal(204);
+                expect(response.body.password).to.equal(undefined);
                 expect(deletedReader).to.equal(null);
             });
 
