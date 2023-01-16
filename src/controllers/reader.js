@@ -1,8 +1,23 @@
 const { Reader } = require("../models");
 
 exports.addReader = async (req, res) => {
-    const newReader = await Reader.create(req.body);
-    res.status(201).json(newReader);
+    try {
+        const newReader = await Reader.create(req.body);
+        res.status(201).json(newReader);
+    } catch (err) {
+        const vKey = err.errors[0].validatorKey;
+
+        if (vKey === 'is_null') {
+            return res.status(404).json({ message: 'You must enter a value for every field.' }); 
+        }
+        if (vKey === 'isEmail') {
+            return res.status(404).json({ message: 'You must enter a valid email address.' }); 
+        }
+        if (vKey === 'len') {
+            return res.status(404).json({ message: 'Your password must be at least 8 characters.' });
+        }
+        res.status(404).json({ errors: err });
+    }
 };
 
 exports.getAllReaders = async (req, res) => {

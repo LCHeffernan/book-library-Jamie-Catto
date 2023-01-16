@@ -26,6 +26,40 @@ describe('/readers', () => {
                 expect(newReaderRecord.email).to.equal('benny.cumbo@gmail.com');
                 expect(newReaderRecord.password).to.equal('password');
             });
+
+            it('returns a 404 if any of the fields are empty', async () => {
+                const response = await request(app).post('/readers').send({
+                    email: 'benny.cumbo@gmail.com',
+                    password: 'password'
+                });
+
+                expect(response.status).to.equal(404);
+                // console.log(response.body);
+                // console.log(response.body.errors.errors);
+                expect(response.body.message).to.equal('You must enter a value for every field.');
+            });
+
+            it('returns a 404 if the password is less than 8 characters', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    email: 'benny.cumbo@gmail.com',
+                    password: 'assword'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message).to.equal('Your password must be at least 8 characters.');
+            });
+
+            it('returns a 404 if the email is not in email format', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    email: 'bennydotcumboAtgmaildotcom',
+                    password: 'password'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message).to.equal('You must enter a valid email address.');
+            })
         });
     });
 
