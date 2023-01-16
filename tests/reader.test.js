@@ -104,7 +104,7 @@ describe('/readers', () => {
                 const response = await request(app).get('/readers/9999999'); 
                 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal("Reader 9999999 does not exist.");
+                expect(response.body.message).to.equal("reader 9999999 does not exist.");
             });
         });
         
@@ -124,7 +124,7 @@ describe('/readers', () => {
                 .send({ email: 'smitty@mclovin.com' });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('Reader 999999 does not exist.');
+                expect(response.body.message).to.equal('reader 999999 does not exist.');
             });
         });
 
@@ -142,7 +142,7 @@ describe('/readers', () => {
                 const response = await request(app).delete('/readers/999999');
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('Reader 999999 does not exist.');
+                expect(response.body.message).to.equal('reader 999999 does not exist.');
             });
         });
     });

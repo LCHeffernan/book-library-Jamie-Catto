@@ -109,7 +109,7 @@ describe('/books', () => {
                 const response = await request(app).get('/books/9999999');
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('Book 9999999 does not exist.');
+                expect(response.body.message).to.equal('book 9999999 does not exist.');
             });
         });
 
@@ -131,7 +131,7 @@ describe('/books', () => {
                 .send({ title: 'Le Comte de Monte Cristo' });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('Book 9999999 does not exist.');
+                expect(response.body.message).to.equal('book 9999999 does not exist.');
             });
         });
 
@@ -150,7 +150,7 @@ describe('/books', () => {
                 const response = await request(app).delete('/books/9999999');
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message).to.equal('Book 9999999 does not exist.');
+                expect(response.body.message).to.equal('book 9999999 does not exist.');
             });
         });
     });

@@ -6,43 +6,17 @@ exports.addReader = async (req, res) => {
 };
 
 exports.getAllReaders = async (req, res) => {
-    const readers = await Reader.findAll();
-    res.status(200).json(readers);
+    helper.getAllItems(res, Reader);
 }
 
 exports.getReader = async (req, res) => {
-    const readerId = req.params.id;
-    const reader = await Reader.findByPk(readerId);
-
-    if (!reader) {
-        res.status(404).json({ message: `Reader ${readerId} does not exist.` });
-    } else {
-        res.status(200).json(reader);
-    }
+    helper.getItem(res, req.params.id, Reader);
 }
 
 exports.updateReaderEmail = async (req, res) => {
-    const readerId = req.params.id;
-    const updateData = req.body;
-
-    const [ updatedRows ] = await Reader.update(updateData, { where: { id: readerId } });
-    // 'updatedRows' is simply a 1 or 0 depending on if the operation was successful
-    
-    const updatedReader = await Reader.findByPk(readerId);
-    
-    if(!updatedReader) {
-        res.status(404).json({ message: `Reader ${readerId} does not exist.` })
-    } else {
-        res.status(200).json(updatedReader);
-    }
+    helper.updateItem(res, req.params.id, req.body, Reader)
 }
 
 exports.deleteReader = async (req, res) => {
-    const readerId = req.params.id;
-    const deletedRows = await Reader.destroy({ where: {id: readerId} });
-    if (!deletedRows) {
-        res.status(404).json({ message: `Reader ${readerId} does not exist.` })
-    } else {
-        res.status(204).json(deletedRows);
-    }
+    helper.deleteItem(res, req.params.id, Reader);
 }
