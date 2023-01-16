@@ -28,6 +28,28 @@ describe('/books', () => {
                 expect(newBookRecord.genre).to.equal('adventure');
                 expect(newBookRecord.isbn).to.equal('9650');
             });
+
+            it('returns a 404 if there is no title entered', async () => {
+                const response = await request(app).post('/books').send({
+                    author: 'Alexander Dumas',
+                    genre: 'adventure',
+                    isbn: '9650'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message).to.equal('You must enter a title and author.');
+            });
+
+            it('returns a 404 if there is no author entered', async () => {
+                const response = await request(app).post('/books').send({
+                    title: 'The Count of Monte Cristo',
+                    genre: 'adventure',
+                    isbn: '9650'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message).to.equal('You must enter a title and author.');
+            });
         });
     });
 

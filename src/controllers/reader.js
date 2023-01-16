@@ -16,7 +16,7 @@ exports.addReader = async (req, res) => {
         if (vKey === 'len') {
             return res.status(404).json({ message: 'Your password must be at least 8 characters.' });
         }
-        res.status(404).json({ errors: err });
+        res.status(404).json({ message: err.message });
     }
 };
 
