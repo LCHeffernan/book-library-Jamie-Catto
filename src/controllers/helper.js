@@ -1,4 +1,4 @@
-const { Reader, Book, Author } = require('../models');
+const { Reader, Book, Author, Genre } = require('../models');
 
 const removePassword = (object) => {
     if(object.hasOwnProperty('password')) {
@@ -14,9 +14,11 @@ const getModelAsString = (model) => {
     if (model === Book) {
         return 'book';
     }
-
     if (model === Author) {
         return 'author';
+    }
+    if (model === Genre) {
+        return 'genre';
     }
 }
 
