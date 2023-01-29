@@ -22,6 +22,16 @@ const getModelAsString = (model) => {
     }
 }
 
+const getOptions = (model) => {
+    if (model === Book) {
+        return { include:  [Author, Genre] };
+    } else if (model === Genre || model === Reader || model === Author) {
+        return { include: Book };
+    }
+
+    return {};
+}
+
 exports.addItem = async (res, item, Model) => {
     try {
         const newItem = await Model.create(item);
@@ -35,13 +45,15 @@ exports.addItem = async (res, item, Model) => {
 }
 
 exports.getAllItems = async (res, Model) => {
-    const items = await Model.findAll();
+    const options = getOptions(Model);
+    const items = await Model.findAll(options);
     const itemsWithoutPassword = items.map((item) => removePassword(item.dataValues));
     res.status(200).json(itemsWithoutPassword);
 }
 
 exports.getItem = async (res, itemId, Model) => {
-    const item = await Model.findByPk(itemId);
+    const options = getOptions(Model);
+    const item = await Model.findByPk(itemId, options);
 
     if (!item) {
         return res.status(404).json({ message: `${getModelAsString(Model)} ${itemId} does not exist.` });

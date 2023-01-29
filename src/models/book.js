@@ -14,20 +14,6 @@ module.exports = (connection, DataTypes) => {
                 },
             },
         },
-        author: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                notNull: {
-                    args: [true],
-                    msg: 'You need to enter a book author.'
-                },
-                notEmpty: {
-                    args: [true],
-                    msg: 'The book title cannot be left empty.'
-                },
-            },
-        },
         isbn: DataTypes.STRING
     }
 
