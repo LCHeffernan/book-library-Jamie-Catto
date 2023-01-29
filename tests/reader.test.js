@@ -27,7 +27,7 @@ describe('/readers', () => {
                 expect(response.body.password).to.equal(undefined);
             });
 
-            it('returns a 404 if any of the fields are empty', async () => {
+            it('returns a 404 if the name field is null', async () => {
                 const response = await request(app).post('/readers').send({
                     email: 'benny.cumbo@gmail.com',
                     password: 'password'
@@ -36,6 +36,18 @@ describe('/readers', () => {
                 expect(response.status).to.equal(404);
                 console.log(response.body);
                 expect(response.body.message[0]).to.equal('You need to enter a reader name.');
+            });
+
+            it('returns a 404 if the name field is empty', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: '',
+                    email: 'benny.cumbo@gmail.com',
+                    password: 'password'
+                });
+
+                expect(response.status).to.equal(404);
+                console.log(response.body);
+                expect(response.body.message[0]).to.equal('The reader name cannot be left empty.');
             });
 
             it('returns a 404 if the password is less than 8 characters', async () => {
@@ -49,6 +61,27 @@ describe('/readers', () => {
                 expect(response.body.message[0]).to.equal('The password must be over 8 characters.');
             });
 
+            it('returns a 404 if the password is null', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    email: 'benny.cumbo@gmail.com',
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[0]).to.equal('You need to enter a password.');
+            });
+
+            it('returns a 404 if the password is empty', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    email: 'benny.cumbo@gmail.com',
+                    password: ''
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[1]).to.equal('The password cannot be left empty.');
+            });
+
             it('returns a 404 if the email is not in email format', async () => {
                 const response = await request(app).post('/readers').send({
                     name: 'Benedict Cumberbatch',
@@ -58,6 +91,39 @@ describe('/readers', () => {
 
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('You need to enter a valid email address.');
+            });
+
+            it('returns a 404 if the email is null', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    password: 'password'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[0]).to.equal('You need to enter an email address.');
+            });
+
+            it('returns a 404 if the email is empty', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: 'Benedict Cumberbatch',
+                    email: '',
+                    password: 'password'
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[1]).to.equal('The email address cannot be left empty.');
+            });
+
+            it('returns multiple messages for more than one error', async () => {
+                const response = await request(app).post('/readers').send({
+                    name: '',
+                    email: 'benny.cumboatgmail.com',
+                    password: 'passwor'
+                    });
+
+                console.log(response.body.message);
+                expect(response.status).to.equal(404);
+                expect(response.body.message.length).to.equal(3);
             })
         });
     });

@@ -39,7 +39,6 @@ exports.addItem = async (res, item, Model) => {
         res.status(201).json(itemWithoutPassword);
     } catch (err) {
         const errMessage = err.errors?.map((e) => e.message);
-        console.log(`From ${getModelAsString(Model)}: ${errMessage}`);
         res.status(404).json({message: errMessage});
     }
 }

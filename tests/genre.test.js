@@ -22,8 +22,17 @@ describe('/genres', () => {
                 expect(newGenre.genre).to.equal('Science Fiction');
             });
 
-            it('returns a 404 if no genre is entered', async () => {
+            it('returns a 404 if genre is null', async () => {
                 const response = await request(app).post('/genres').send({});
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[0]).to.equal('You need to enter a genre in order to create one.');
+            });
+
+            it('returns a 404 if genre is empty', async () => {
+                const response = await request(app).post('/genres').send({
+                    genre: ''
+                });
 
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('You need to enter a genre in order to create one.');

@@ -15,38 +15,34 @@ describe('/books', () => {
             it('creates a new book in the database', async () => {
                 const response = await request(app).post('/books').send({
                     title: 'The Count of Monte Cristo',
-                    author: 'Alexander Dumas',
-                    genre: 'adventure',
                     isbn: '9650'
                 });
 
                 const newBookRecord = await Book.findByPk(response.body.id, { raw: true });
+                console.log(response.body);
                 expect(response.status).to.equal(201);
                 expect(response.body.title).to.equal('The Count of Monte Cristo');
                 expect(newBookRecord.title).to.equal('The Count of Monte Cristo');
-                expect(newBookRecord.author).to.equal('Alexander Dumas');
                 expect(newBookRecord.isbn).to.equal('9650');
             });
 
-            it('returns a 404 if there is no title entered', async () => {
+            it('returns a 404 if the title is null', async () => {
                 const response = await request(app).post('/books').send({
-                    author: 'Alexander Dumas',
-                    genre: 'adventure',
                     isbn: '9650'
                 });
+                console.log(response.body);
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('You need to enter a book title.');
             });
 
-            it('returns a 404 if there is no author entered', async () => {
+            it('returns a 404 if the title is empty', async () => {
                 const response = await request(app).post('/books').send({
-                    title: 'The Count of Monte Cristo',
-                    genre: 'adventure',
+                    title: '',
                     isbn: '9650'
                 });
-
+                console.log(response.body);
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('You need to enter a book author.');
+                expect(response.body.message[0]).to.equal('The book title cannot be left empty.');
             });
         });
     });

@@ -22,11 +22,20 @@ describe('/authors', () => {
                 expect(newAuthor.name).to.equal('Alexander Dumas');
             });
 
-            it('returns a 404 if no author is entered', async () => {
+            it('returns a 404 if author name is null', async () => {
                 const response = await request(app).post('/authors').send({});
 
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('You need to enter an author name.');
+            });
+
+            it('returns a 404 if author name is empty', async () => {
+                const response = await request(app).post('/authors').send({
+                    name: ''
+                });
+
+                expect(response.status).to.equal(404);
+                expect(response.body.message[0]).to.equal('The author name cannot be left empty.');
             });
         });
     });
