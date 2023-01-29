@@ -4,7 +4,16 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
-            notEmpty: true
+            validate: {
+                notNull: {
+                    args: [true],
+                    msg: 'You need to enter an author name.'
+                },
+                notEmpty: {
+                    args: [true],
+                    msg: 'The author name cannot be left empty.'
+                },
+            },
         }
     }
 

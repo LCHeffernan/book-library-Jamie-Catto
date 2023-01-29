@@ -26,7 +26,7 @@ describe('/genres', () => {
                 const response = await request(app).post('/genres').send({});
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Genre.genre cannot be null');
+                expect(response.body.message[0]).to.equal('You need to enter a genre in order to create one.');
             });
         });
     });

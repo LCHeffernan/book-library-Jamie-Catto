@@ -26,7 +26,7 @@ describe('/authors', () => {
                 const response = await request(app).post('/authors').send({});
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Author.name cannot be null');
+                expect(response.body.message[0]).to.equal('You need to enter an author name.');
             });
         });
     });

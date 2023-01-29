@@ -34,7 +34,8 @@ describe('/readers', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Reader.name cannot be null');
+                console.log(response.body);
+                expect(response.body.message[0]).to.equal('You need to enter a reader name.');
             });
 
             it('returns a 404 if the password is less than 8 characters', async () => {
@@ -45,7 +46,7 @@ describe('/readers', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Validation len on password failed');
+                expect(response.body.message[0]).to.equal('The password must be over 8 characters.');
             });
 
             it('returns a 404 if the email is not in email format', async () => {
@@ -56,7 +57,7 @@ describe('/readers', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Validation isEmail on email failed');
+                expect(response.body.message[0]).to.equal('You need to enter a valid email address.');
             })
         });
     });

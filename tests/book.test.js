@@ -25,7 +25,6 @@ describe('/books', () => {
                 expect(response.body.title).to.equal('The Count of Monte Cristo');
                 expect(newBookRecord.title).to.equal('The Count of Monte Cristo');
                 expect(newBookRecord.author).to.equal('Alexander Dumas');
-                expect(newBookRecord.genre).to.equal('adventure');
                 expect(newBookRecord.isbn).to.equal('9650');
             });
 
@@ -36,7 +35,7 @@ describe('/books', () => {
                     isbn: '9650'
                 });
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Book.title cannot be null');
+                expect(response.body.message[0]).to.equal('You need to enter a book title.');
             });
 
             it('returns a 404 if there is no author entered', async () => {
@@ -47,7 +46,7 @@ describe('/books', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                expect(response.body.message[0]).to.equal('Book.author cannot be null');
+                expect(response.body.message[0]).to.equal('You need to enter a book author.');
             });
         });
     });

@@ -4,7 +4,16 @@ module.exports = (connection, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
-            notEmpty: true
+            validate: {
+                notNull: {
+                    args: [true],
+                    msg: 'You need to enter a genre in order to create one.'
+                },
+                notEmpty: {
+                    args: [true],
+                    msg: 'You need to enter a genre in order to create one.'
+                }
+            }
         }
     }
 
