@@ -53,30 +53,47 @@ You can also run tests with `npm test`.
 
 ### /readers
 *GET* **/readers**: returns all registered readers.
+
 *GET* **/readers/:id**: returns a reader by ID.
+
 *PUT* **/readers**: adds a reader to the database.
+
 *PATCH* **/readers/:id**: updates a reader record by ID.
+
 *DELETE* **/readers/:id**: deletes a reader record by ID.
 
 ### /books
 *GET* **/books**: returns all registered books.
+
 *GET* **/books/:id**: returns a book by ID.
+
 *PUT* **/books**: adds a book to the database.
+
 *PATCH* **/books/:id**: updates a book record by ID.
+
 *DELETE* **/books/:id**: deletes a book record by ID.
 
 ### /genres
 *GET* **/genres**: returns all registered genres.
+
 *GET* **/genres/:id**: returns a genre by ID.
+
 *PUT* **/genres**: adds a genre to the database.
+
 *PATCH* **/genres/:id**: updates a genre record by ID.
+
 *DELETE* **/genres/:id**: deletes a genre record by ID.
+
 
 ### /authors
 *GET* **/authors**: returns all registered genres.
+
 *GET* **/authors/:id**: returns a genre by ID.
+
 *PUT* **/authors**: adds a genre to the database.
+
 *PATCH* **/authors/:id**: updates a genre record by ID.
+
 *DELETE* **/authors/:id**: deletes a genre record by ID.
 
 ## Tests
