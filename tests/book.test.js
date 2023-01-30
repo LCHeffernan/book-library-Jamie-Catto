@@ -19,7 +19,6 @@ describe('/books', () => {
                 });
 
                 const newBookRecord = await Book.findByPk(response.body.id, { raw: true });
-                console.log(response.body);
                 expect(response.status).to.equal(201);
                 expect(response.body.title).to.equal('The Count of Monte Cristo');
                 expect(newBookRecord.title).to.equal('The Count of Monte Cristo');
@@ -30,7 +29,6 @@ describe('/books', () => {
                 const response = await request(app).post('/books').send({
                     isbn: '9650'
                 });
-                console.log(response.body);
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('You need to enter a book title.');
             });
@@ -40,7 +38,6 @@ describe('/books', () => {
                     title: '',
                     isbn: '9650'
                 });
-                console.log(response.body);
                 expect(response.status).to.equal(404);
                 expect(response.body.message[0]).to.equal('The book title cannot be left empty.');
             });

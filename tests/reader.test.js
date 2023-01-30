@@ -34,7 +34,6 @@ describe('/readers', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                console.log(response.body);
                 expect(response.body.message[0]).to.equal('You need to enter a reader name.');
             });
 
@@ -46,7 +45,6 @@ describe('/readers', () => {
                 });
 
                 expect(response.status).to.equal(404);
-                console.log(response.body);
                 expect(response.body.message[0]).to.equal('The reader name cannot be left empty.');
             });
 
@@ -121,7 +119,6 @@ describe('/readers', () => {
                     password: 'passwor'
                     });
 
-                console.log(response.body.message);
                 expect(response.status).to.equal(404);
                 expect(response.body.message.length).to.equal(3);
             })
@@ -145,7 +142,6 @@ describe('/readers', () => {
 
                 expect(response.status).to.equal(200);
                 expect(response.body.length).to.equal(3);
-                // console.log(response.body);
 
                 response.body.forEach((reader) => {
                     const expected = readers.find((a) => a.id === reader.id);
